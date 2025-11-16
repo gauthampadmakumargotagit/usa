@@ -87,14 +87,15 @@
 	<datalist id="capitalList"></datalist>
 	<input list="capitalList" id="capitalInput" placeholder="State Capital" autocomplete="off">
 	<br>
+	<button id="submitBtn">Submit</button>
+	<br>
 	<span id="errorText" style="color:red;"></span>
 </div>
 
 <div id="result" style="display:none;"></div>
 
 <script>
-// Paste your existing JS code here (the one we modified for attempts & map clicks)
-const states = [
+	const states = [
 		{id:"AL", name:"Alabama", abbr:"AL", capital:"Montgomery"},
 		{id:"AK", name:"Alaska", abbr:"AK", capital:"Juneau"},
 		{id:"AZ", name:"Arizona", abbr:"AZ", capital:"Phoenix"},
@@ -147,7 +148,6 @@ const states = [
 		{id:"WY", name:"Wyoming", abbr:"WY", capital:"Cheyenne"}
 	];
 
-
 	let currentIndex = 0;
 	let abbrScore = 0;
 	let capitalScore = 0;
@@ -161,6 +161,7 @@ const states = [
 	const errorText = document.getElementById('errorText');
 	const map = document.getElementById('map');
 	const resultDiv = document.getElementById('result');
+	const submitBtn = document.getElementById('submitBtn');
 
 	// Populate capital dropdown
 	states.forEach(s => {
@@ -170,8 +171,8 @@ const states = [
 	});
 
 	// Shuffle states
-	for (let i = states.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
+	for(let i = states.length-1; i>0; i--){
+		const j = Math.floor(Math.random()*(i+1));
 		[states[i], states[j]] = [states[j], states[i]];
 	}
 
@@ -179,35 +180,33 @@ const states = [
 	abbrInput.addEventListener('input', () => abbrInput.value = abbrInput.value.toUpperCase());
 
 	// Show question
-	function showQuestion() {
+	function showQuestion(){
 		attempts = 3;
 		errorText.textContent = '';
 		abbrInput.value = '';
 		capitalInput.value = '';
 		abbrInput.focus();
 		const state = states[currentIndex];
-		questionText.textContent = `${currentIndex + 1}) ${state.name}`;
-		states.forEach(s => {
+		questionText.textContent = `${currentIndex+1}) ${state.name}`;
+		states.forEach(s=>{
 			const el = document.getElementById(s.abbr);
 			if(el) el.classList.remove('correct','wrong');
 		});
 	}
 
-	// Letter grade
-	function letterGrade(p) {
-		if(p >= 90) return 'A';
-		if(p >= 80) return 'B';
-		if(p >= 70) return 'C';
-		if(p >= 60) return 'D';
+	function letterGrade(p){
+		if(p>=90) return 'A';
+		if(p>=80) return 'B';
+		if(p>=70) return 'C';
+		if(p>=60) return 'D';
 		return 'F';
 	}
 
-	// Show results
-	function showResults() {
+	function showResults(){
 		document.getElementById('quiz').style.display = 'none';
-		const abbrPercent = Math.round((abbrScore / states.length) * 100);
-		const capitalPercent = Math.round((capitalScore / states.length) * 100);
-		const mapPercent = Math.round((mapScore / states.length) * 100);
+		const abbrPercent = Math.round((abbrScore/states.length)*100);
+		const capitalPercent = Math.round((capitalScore/states.length)*100);
+		const mapPercent = Math.round((mapScore/states.length)*100);
 		resultDiv.innerHTML = `
 			<h2>Results</h2>
 			<p>Abbreviations: ${abbrScore}/${states.length} (${abbrPercent}%) - Grade: ${letterGrade(abbrPercent)}</p>
@@ -217,45 +216,45 @@ const states = [
 		resultDiv.style.display = 'block';
 	}
 
-	// Unified answer handler
-	function handleAnswer() {
+	// Unified submit function
+	function handleSubmit(){
 		const state = states[currentIndex];
 		const abbrVal = abbrInput.value.trim().toUpperCase();
 		const capitalVal = capitalInput.value.trim();
 
-		const abbrCorrect = (abbrVal === state.abbr);
-		const capitalCorrect = (capitalVal === state.capital);
+		const abbrCorrect = (abbrVal===state.abbr);
+		const capitalCorrect = (capitalVal===state.capital);
 
 		if(abbrCorrect) abbrScore++;
 		if(capitalCorrect) capitalScore++;
 
-		if(abbrCorrect || capitalCorrect) {
+		if(abbrCorrect || capitalCorrect){
 			nextQuestion();
 			return;
 		}
 
 		attempts--;
-		if(attempts > 0) {
-			errorText.textContent = `Wrong! Try again (${attempts} attempts left)`;
-		} else {
+		if(attempts>0){
+			errorText.textContent=`Wrong! Try again (${attempts} attempts left)`;
+		}else{
 			const el = document.getElementById(state.abbr);
 			if(el) el.classList.add('wrong');
-			setTimeout(nextQuestion, 800);
+			setTimeout(nextQuestion,800);
 		}
 	}
 
-	// Handle Enter (mobile-safe)
-	[abbrInput, capitalInput].forEach(input => {
-		input.addEventListener('keydown', e => {
-			if(e.key === 'Enter' || e.keyCode === 13) handleAnswer();
-		});
-		input.addEventListener('keypress', e => {
-			if(e.key === 'Enter' || e.keyCode === 13) handleAnswer();
+	// Submit button click
+	submitBtn.addEventListener('click', handleSubmit);
+
+	// Enter key submission (desktop + mobile)
+	[abbrInput, capitalInput].forEach(input=>{
+		input.addEventListener('keydown', e=>{
+			if(e.key==='Enter' || e.keyCode===13) handleSubmit();
 		});
 	});
 
 	// Map click
-	map.addEventListener('click', e => {
+	map.addEventListener('click', e=>{
 		const state = states[currentIndex];
 		const clicked = e.target.id;
 		if(!clicked) return;
@@ -263,37 +262,34 @@ const states = [
 		const abbrVal = abbrInput.value.trim().toUpperCase();
 		const capitalVal = capitalInput.value.trim();
 
-		if(abbrVal === state.abbr) abbrScore++;
-		if(capitalVal === state.capital) capitalScore++;
+		if(abbrVal===state.abbr) abbrScore++;
+		if(capitalVal===state.capital) capitalScore++;
 
-		if(clicked === state.abbr) {
+		if(clicked===state.abbr){
 			mapScore++;
 			e.target.classList.add('correct');
-			setTimeout(nextQuestion, 500);
-		} else {
+			setTimeout(nextQuestion,500);
+		}else{
 			attempts--;
-			if(attempts > 0) {
-				errorText.textContent = `Wrong! Try again (${attempts} attempts left)`;
-			} else {
+			if(attempts>0){
+				errorText.textContent=`Wrong! Try again (${attempts} attempts left)`;
+			}else{
 				const el = document.getElementById(state.abbr);
 				if(el) el.classList.add('wrong');
-				setTimeout(nextQuestion, 1000);
+				setTimeout(nextQuestion,1000);
 			}
 		}
 	});
 
-	// Next question
-	function nextQuestion() {
+	function nextQuestion(){
 		currentIndex++;
-		if(currentIndex < states.length) {
-			showQuestion();
-		} else {
-			showResults();
-		}
+		if(currentIndex<states.length) showQuestion();
+		else showResults();
 	}
 
 	// Start quiz
 	showQuestion();
 </script>
+
 </body>
 </html>
