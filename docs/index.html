@@ -252,6 +252,40 @@ map.addEventListener('click', e => {
     }
   }
 });
+// ENTER KEY TO SUBMIT ANSWER
+function handleEnterSubmit(e) {
+  if (e.key === "Enter") {
+
+    const state = states[currentIndex];
+    const abbrVal = abbrInput.value.trim().toUpperCase();
+    const capitalVal = capitalInput.value.trim();
+
+    const abbrCorrect = (abbrVal === state.abbr);
+    const capitalCorrect = (capitalVal === state.capital);
+
+    // If user got EITHER correct → move on
+    if (abbrCorrect || capitalCorrect) {
+
+      if (abbrCorrect) abbrScore++;
+      if (capitalCorrect) capitalScore++;
+
+      nextQuestion();
+      return;
+    }
+
+    // BOTH WRONG → count attempt, but do NOT move on
+    attempts--;
+    if (attempts > 0) {
+      errorText.innerHTML = `Wrong! Try again (${attempts} attempts left)`;
+    } else {
+      document.getElementById(state.abbr).classList.add("wrong");
+      setTimeout(nextQuestion, 800);
+    }
+  }
+}
+
+abbrInput.addEventListener("keydown", handleEnterSubmit);
+capitalInput.addEventListener("keydown", handleEnterSubmit);
 
 // start quiz
 showQuestion();
