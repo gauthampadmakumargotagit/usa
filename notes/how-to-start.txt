@@ -1,0 +1,25 @@
+Notes-how to host a page
+===========================
+1. login to github (hub is a remote git server)
+2. create a repo (a working space in the git server) by proviging a name like '50-states'
+3. select the repo and got to setting from the links on the top
+4. nav to 'Pages' from the left pane
+5. On section 'Deploy from branch', select 'Main' and 'root' 
+	-	root means the standard 'index.html' file will be right in the root folder.
+	-	it is possible to move this to 'docs' folder. Option is only limited to 'root' or 'docs'
+	-	moving to 'docs' will help to keep other artifacts like docs, tooling, etc outside of main source code
+6. optional - if a custom domain is available (purchased from godaddy), it is possible to specify the mapping
+7. press 'Save' -- wait for a minute or so, and github will provide a published site links
+
+Example:
+Your site is live at https://gauthampadmakumargotagit.github.io/50-states/
+Last deployed by @gauthampadmakumargotagit gauthampadmakumargotagit 9 minutes ago
+
+Notes-how to contribute (submit code)
+=====================================
+1. install a convenient git-client in the laptop (can use tortoize-git on top of normal git-client)
+2. clone the repo url 'https://github.com/gauthampadmakumargotagit/50-states'
+3. write up 'index.html' (a standard filename)
+4. commit+push - code will go up the way to github server
+5. github agents detect the change and will recompile(build) and publish(deploy)
+6. page is publically viewable after this, as 'https://gauthampadmakumargotagit.github.io/50-states/'

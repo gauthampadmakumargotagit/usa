@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>SVG Path Converter (HTA)</title>
+<hta:application id="oHTA"
+    applicationname="SVG Converter"
+    border="thin"
+    caption="yes"
+    maximizebutton="no"
+    minimizebutton="yes"
+    sysmenu="yes"
+    scroll="yes"
+    singleinstance="yes"
+/>
+<style>
+body { font-family: sans-serif; margin: 10px; }
+textarea { width: 100%; height: 300px; margin-bottom: 10px; }
+button { padding: 5px 10px; margin-right: 5px; }
+</style>
+</head>
+<body>
+<h2>SVG Path Converter (HTA)</h2>
+
+<textarea id="input" placeholder="Paste file1 content here..."></textarea>
+<br>
+<button onclick="convert()">Convert</button>
+<button onclick="saveFile()">Save as file2.svg</button>
+
+<p>Output:</p>
+<textarea id="output"></textarea>
+
+<script language="javascript">
+function convert() {
+    var input = document.getElementById('input').value;
+
+    // Replace & for XML parsing
+    input = input.replace(/&/g, '&amp;');
+
+    // HTA-compatible XML parser
+    var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+    xmlDoc.async = false;
+    if (!xmlDoc.loadXML('<root>' + input + '</root>')) {
+        alert("Error parsing XML. Check your input.");
+        return;
+    }
+
+    var paths = xmlDoc.getElementsByTagName('path');
+    var output = '';
+    for (var i = 0; i < paths.length; i++) {
+        var path = paths[i];
+        var id = path.getAttribute('id') || '';
+        var d = path.getAttribute('d') || '';
+        if (id && d) {
+            output += '<path id="' + id + '" d="' + d + '" fill="#ccc" stroke="#fff" stroke-width="1"></path>\r\n';
+        }
+    }
+    document.getElementById('output').value = output;
+}
+
+// Optional: save output to file
+function saveFile() {
+    var fso = new ActiveXObject("Scripting.FileSystemObject");
+    var file = fso.CreateTextFile("file2.svg", true);
+    file.WriteLine(document.getElementById('output').value);
+    file.Close();
+    alert("Saved as file2.svg in current folder.");
+}
+</script>
+</body>
+</html>
