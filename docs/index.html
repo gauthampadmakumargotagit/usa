@@ -252,9 +252,14 @@ map.addEventListener('click', e => {
     }
   }
 });
-// ENTER KEY TO SUBMIT ANSWER
+// MOBILE-SAFE ENTER KEY SUBMISSION
 function handleEnterSubmit(e) {
-  if (e.key === "Enter") {
+
+  // Prevent phones from submitting the form
+  e.preventDefault();
+
+  // Accept any mobile "Enter" key variation
+  if (e.key === "Enter" || e.keyCode === 13) {
 
     const state = states[currentIndex];
     const abbrVal = abbrInput.value.trim().toUpperCase();
@@ -265,18 +270,17 @@ function handleEnterSubmit(e) {
 
     // If user got EITHER correct → move on
     if (abbrCorrect || capitalCorrect) {
-
       if (abbrCorrect) abbrScore++;
       if (capitalCorrect) capitalScore++;
-
       nextQuestion();
       return;
     }
 
     // BOTH WRONG → count attempt, but do NOT move on
     attempts--;
+
     if (attempts > 0) {
-      errorText.innerHTML = `Wrong! Try again (${attempts} attempts left)`;
+      errorText.textContent = `Wrong! Try again (${attempts} attempts left)`;
     } else {
       document.getElementById(state.abbr).classList.add("wrong");
       setTimeout(nextQuestion, 800);
@@ -284,6 +288,7 @@ function handleEnterSubmit(e) {
   }
 }
 
+// Add listeners to both inputs
 abbrInput.addEventListener("keydown", handleEnterSubmit);
 capitalInput.addEventListener("keydown", handleEnterSubmit);
 
