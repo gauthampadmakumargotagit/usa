@@ -253,47 +253,48 @@ map.addEventListener('click', e => {
   }
 });
 // MOBILE-SAFE ENTER KEY SUBMISSION
-function handleEnterSubmit(e) {
+function handleSubmit(e) {
+  e.preventDefault(); // prevent any form submission / page reload
 
-  // Prevent phones from submitting the form
-  e.preventDefault();
+  const state = states[currentIndex];
+  const abbrVal = abbrInput.value.trim().toUpperCase();
+  const capitalVal = capitalInput.value.trim();
 
-  // Accept any mobile "Enter" key variation
-  if (e.key === "Enter" || e.keyCode === 13) {
+  const abbrCorrect = (abbrVal === state.abbr);
+  const capitalCorrect = (capitalVal === state.capital);
 
-    const state = states[currentIndex];
-    const abbrVal = abbrInput.value.trim().toUpperCase();
-    const capitalVal = capitalInput.value.trim();
+  if (abbrCorrect || capitalCorrect) {
+    if (abbrCorrect) abbrScore++;
+    if (capitalCorrect) capitalScore++;
+    nextQuestion();
+    return;
+  }
 
-    const abbrCorrect = (abbrVal === state.abbr);
-    const capitalCorrect = (capitalVal === state.capital);
-
-    // If user got EITHER correct → move on
-    if (abbrCorrect || capitalCorrect) {
-      if (abbrCorrect) abbrScore++;
-      if (capitalCorrect) capitalScore++;
-      nextQuestion();
-      return;
-    }
-
-    // BOTH WRONG → count attempt, but do NOT move on
-    attempts--;
-
-    if (attempts > 0) {
-      errorText.textContent = `Wrong! Try again (${attempts} attempts left)`;
-    } else {
-      document.getElementById(state.abbr).classList.add("wrong");
-      setTimeout(nextQuestion, 800);
-    }
+  // BOTH WRONG
+  attempts--;
+  if (attempts > 0) {
+    errorText.textContent = `Wrong! Try again (${attempts} attempts left)`;
+  } else {
+    document.getElementById(state.abbr).classList.add("wrong");
+    setTimeout(nextQuestion, 800);
   }
 }
 
-// Add listeners to both inputs
-abbrInput.addEventListener("keydown", handleEnterSubmit);
-capitalInput.addEventListener("keydown", handleEnterSubmit);
+// Attach event listeners
+abbrInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.keyCode === 13) handleSubmit(e);
+});
+capitalInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" || e.keyCode === 13) handleSubmit(e);
+});
 
-// start quiz
-showQuestion();
+// ALSO attach keypress for mobile keyboards
+abbrInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter" || e.keyCode === 13) handleSubmit(e);
+});
+capitalInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter" || e.keyCode === 13) handleSubmit(e);
+});
 </script>
 
 </body>
