@@ -184,17 +184,17 @@
 
 	// Show question
 	function showQuestion(){
-		attempts=3;
-		errorText.textContent='';
-		abbrInput.value='';
-		capitalInput.value='';
+		attempts = 3;
+		errorText.textContent = '';
+		abbrInput.value = '';
+		capitalInput.value = '';
 		abbrInput.focus();
-		const state=states[currentIndex];
-		questionText.textContent=`${currentIndex+1}) ${state.name}`;
-		states.forEach(s=>{
-			const el=document.getElementById(s.abbr);
-			if(el) el.classList.remove('correct','wrong');
-		});
+
+		const state = states[currentIndex];
+		questionText.textContent = `${currentIndex + 1}) ${state.name}`;
+
+	// DO NOT CLEAR MAP COLORS ANYMORE
+	// (This keeps green & red progress marks permanent)
 	}
 
 	function letterGrade(p){
