@@ -6,21 +6,112 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>USA States Quiz</title>
 <style>
-	body { text-align: center; font-family: sans-serif; background: #f0f0f0; }
-	#quiz, #result { margin: 20px auto; max-width: 800px; }
-	#map { width: 100%; max-width: 1000px; height: auto; margin: 20px auto; }
-	#map path { fill: #ccc; stroke: #333; stroke-width: 1; cursor: pointer; transition: fill 0.3s; }
+	/* Body & Background */
+	body {
+		background-color: #1e3a8a; /* nice deep blue */
+		color: #fff; /* white text for contrast */
+		font-family: sans-serif;
+		text-align: center;
+		margin: 0;
+		padding: 0;
+	}
+
+	/* Main containers */
+	#quiz, #result, #answerKeyBox {
+		background: transparent;  /* remove white boxes */
+		padding: 20px;
+		margin: 20px auto;
+		max-width: 800px;
+		width: 90%;
+		border-radius: 10px;
+		box-shadow: none; /* fully flush */
+		text-align: center;
+	}
+
+	/* Map styling */
+	#map {
+		width: 100%;
+		max-width: 1000px;
+		height: auto;
+		margin: 20px auto;
+		display: block;
+	}
+	#map path {
+		fill: #ccc;
+		stroke: #333;
+		stroke-width: 1;
+		cursor: pointer;
+		transition: fill 0.3s;
+	}
 	#map path.correct { fill: green !important; }
 	#map path.wrong { fill: red !important; }
-	input { padding: 5px; margin: 5px; font-size: 16px; }
 
-	/* Adjust individual input widths */
-	#abbrInput { width: 2.5ch; }   /* abbreviation box just wide enough for 2 letters */
-	#capitalInput { width: 20ch; } /* capital box comfortably wide */
+	/* Inputs */
+	input {
+		padding: 5px;
+		margin: 5px;
+		font-size: 16px;
+		border-radius: 5px;
+		border: 1px solid #fff;
+		background: rgba(255, 255, 255, 0.1); /* slightly see-through */
+		color: #fff;
+	}
+	#abbrInput { width: 2.5ch; }
+	#capitalInput { width: 20ch; }
+
+	/* Answer key table */
+	#answerKeyBox table {
+		width: 100%;
+		border-collapse: collapse;
+		color: #fff;
+	}
+	#answerKeyBox td, #answerKeyBox th {
+		border: 1px solid rgba(255,255,255,0.5);
+		padding: 4px;
+		font-size: 14px;
+	}
+
+	/* Show One-Time Answer Key Button */
+	#showAnswerKeyBtn {
+		color: red;
+		font-family: Impact, Charcoal, sans-serif;
+		font-size: 18px;
+		cursor: pointer;
+		margin: 10px;
+		animation: flash 1s infinite;
+		background: transparent;
+		border: 2px solid red;
+		border-radius: 5px;
+		padding: 5px 10px;
+	}
+	@keyframes flash {
+		0%   { text-shadow: 0 0 5px red; }
+		50%  { text-shadow: 0 0 20px orange; }
+		100% { text-shadow: 0 0 5px red; }
+	}
+
+	/* Buttons inside answer key box */
+	#answerKeyBox button {
+		padding: 5px 10px;
+		border-radius: 5px;
+		background: red;
+		color: #fff;
+		border: none;
+		cursor: pointer;
+		margin-top: 10px;
+	}
 </style>
 </head>
 <body>
 <h1>USA States Quiz</h1>
+<button id="showAnswerKeyBtn">Show One-Time Answer Key</button>
+
+<div id="answerKeyBox">
+	<h3>State Abbreviations & Capitals</h3>
+	<table id="answerKeyTable"></table>
+	<button onclick="hideAnswerKey()">Close</button>
+</div>
+
 <div id="quiz">  
 	<span style="font-size: 12px;">Enter state abbreviation, select capital, then click it on the map.</span>
 	<svg id="map" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700">
@@ -81,7 +172,7 @@
 		<path id="AK" d="M332.1,553.7l-0.3,85.4l1.6,1l3.1,0.2l1.5-1.1h2.6l0.2,2.9l7,6.8l0.5,2.6l3.4-1.9l0.6-0.2l0.3-3.1l1.5-1.6l1.1-0.2l1.9-1.5l3.1,2.1l0.6,2.9l1.9,1.1l1.1,2.4l3.9,1.8l3.4,6l2.7,3.9l2.3,2.7l1.5,3.7l5,1.8l5.2,2.1l1,4.4l0.5,3.1l-1,3.4l-1.8,2.3l-1.6-0.8l-1.5-3.1l-2.7-1.5l-1.8-1.1l-0.8,0.8l1.5,2.7l0.2,3.7l-1.1,0.5l-1.9-1.9l-2.1-1.3l0.5,1.6l1.3,1.8l-0.8,0.8c0,0-0.8-0.3-1.3-1c-0.5-0.6-2.1-3.4-2.1-3.4l-1-2.3c0,0-0.3,1.3-1,1c-0.6-0.3-1.3-1.5-1.3-1.5l1.8-1.9l-1.5-1.5v-5h-0.8l-0.8,3.4l-1.1,0.5l-1-3.7l-0.6-3.7l-0.8-0.5l0.3,5.7v1.1l-1.5-1.3l-3.6-6l-2.1-0.5l-0.6-3.7l-1.6-2.9l-1.6-1.1v-2.3l2.1-1.3l-0.5-0.3l-2.6,0.6l-3.4-2.4l-2.6-2.9l-4.8-2.6l-4-2.6l1.3-3.2v-1.6l-1.8,1.6l-2.9,1.1l-3.7-1.1l-5.7-2.4h-5.5l-0.6,0.5l-6.5-3.9l-2.1-0.3l-2.7-5.8l-3.6,0.3l-3.6,1.5l0.5,4.5l1.1-2.9l1,0.3l-1.5,4.4l3.2-2.7l0.6,1.6l-3.9,4.4l-1.3-0.3l-0.5-1.9l-1.3-0.8l-1.3,1.1l-2.7-1.8l-3.1,2.1l-1.8,2.1l-3.4,2.1l-4.7-0.2l-0.5-2.1l3.7-0.6v-1.3l-2.3-0.6l1-2.4l2.3-3.9v-1.8l0.2-0.8l4.4-2.3l1,1.3h2.7l-1.3-2.6l-3.7-0.3l-5,2.7l-2.4,3.4l-1.8,2.6l-1.1,2.3l-4.2,1.5l-3.1,2.6l-0.3,1.6l2.3,1l0.8,2.1l-2.7,3.2l-6.5,4.2l-7.8,4.2l-2.1,1.1l-5.3,1.1l-5.3,2.3l1.8,1.3l-1.5,1.5l-0.5,1.1l-2.7-1l-3.2,0.2l-0.8,2.3h-1l0.3-2.4l-3.6,1.3l-2.9,1l-3.4-1.3l-2.9,1.9h-3.2l-2.1,1.3l-1.6,0.8l-2.1-0.3l-2.6-1.1l-2.3,0.6l-1,1l-1.6-1.1v-1.9l3.1-1.3l6.3,0.6l4.4-1.6l2.1-2.1l2.9-0.6l1.8-0.8l2.7,0.2l1.6,1.3l1-0.3l2.3-2.7l3.1-1l3.4-0.6l1.3-0.3l0.6,0.5h0.8l1.3-3.7l4-1.5l1.9-3.7l2.3-4.5l1.6-1.5l0.3-2.6l-1.6,1.3l-3.4,0.6l-0.6-2.4l-1.3-0.3l-1,1l-0.2,2.9l-1.5-0.2l-1.5-5.8l-1.3,1.3l-1.1-0.5l-0.3-1.9l-4,0.2l-2.1,1.1l-2.6-0.3l1.5-1.5l0.5-2.6l-0.6-1.9l1.5-1l1.3-0.2l-0.6-1.8v-4.4l-1-1l-0.8,1.5h-6.1l-1.5-1.3l-0.6-3.9l-2.1-3.6v-1l2.1-0.8l0.2-2.1l1.1-1.1l-0.8-0.5l-1.3,0.5l-1.1-2.7l1-5l4.5-3.2l2.6-1.6l1.9-3.7l2.7-1.3l2.6,1.1l0.3,2.4l2.4-0.3l3.2-2.4l1.6,0.6l1,0.6h1.6l2.3-1.3l0.8-4.4c0,0,0.3-2.9,1-3.4c0.6-0.5,1-1,1-1l-1.1-1.9l-2.6,0.8l-3.2,0.8l-1.9-0.5l-3.6-1.8l-5-0.2l-3.6-3.7l0.5-3.9l0.6-2.4l-2.1-1.8l-1.9-3.7l0.5-0.8l6.8-0.5h2.1l1,1h0.6l-0.2-1.6l3.9-0.6l2.6,0.3l1.5,1.1l-1.5,2.1l-0.5,1.5l2.7,1.6l5,1.8l1.8-1l-2.3-4.4l-1-3.2l1-0.8l-3.4-1.9l-0.5-1.1l0.5-1.6l-0.8-3.9l-2.9-4.7l-2.4-4.2l2.9-1.9h3.2l1.8,0.6l4.2-0.2l3.7-3.6l1.1-3.1l3.7-2.4l1.6,1l2.7-0.6l3.7-2.1l1.1-0.2l1,0.8l4.5-0.2l2.7-3.1h1.1l3.6,2.4l1.9,2.1l-0.5,1.1l0.6,1.1l1.6-1.6l3.9,0.3l0.3,3.7l1.9,1.5l7.1,0.6l6.3,4.2l1.5-1l5.2,2.6l2.1-0.6l1.9-0.8l4.8,1.9L332.1,553.7z"fill="#ccc" stroke="#fff" stroke-width="1"></path>
 	</svg>
 
-	<span id="questionText" style="font-weight:bold; background-color:yellow;"></span>
+	<span id="questionText" style="color: black;font-weight:bold; background-color:yellow;"></span>
 	<br>
 
 	<form id="quizForm">
@@ -90,6 +181,7 @@
 		<input list="capitalList" id="capitalInput" placeholder="State Capital" autocomplete="off">
 		<br>
 		<button type="submit">Submit</button>
+		<button onclick="resetQuiz()">Restart Quiz</button>
 	</form>
 
 	<span id="errorText" style="color:red;"></span>
@@ -150,6 +242,45 @@
 		{id:"WI", name:"Wisconsin", abbr:"WI", capital:"Madison"},
 		{id:"WY", name:"Wyoming", abbr:"WY", capital:"Cheyenne"}
 	];
+let answerKeyUsed = false;
+
+document.getElementById("showAnswerKeyBtn").addEventListener("click", ()=>{
+	if(answerKeyUsed) return;
+	answerKeyUsed = true;
+	document.getElementById("showAnswerKeyBtn").style.display = "none";
+	showAnswerKey();
+});
+
+function showAnswerKey(){
+	const table = document.getElementById("answerKeyTable");
+	table.innerHTML = "";
+
+	let header = `
+		<tr>
+			<th>State</th>
+			<th>Abbr</th>
+			<th>Capital</th>
+		</tr>
+	`;
+	table.insertAdjacentHTML("beforeend", header);
+
+	states.forEach(s=>{
+		let row = `
+			<tr>
+				<td>${s.name}</td>
+				<td>${s.abbr}</td>
+				<td>${s.capital}</td>
+			</tr>
+		`;
+		table.insertAdjacentHTML("beforeend", row);
+	});
+
+	document.getElementById("answerKeyBox").style.display = "block";
+}
+
+function hideAnswerKey(){
+	document.getElementById("answerKeyBox").style.display = "none";
+}
 
 	let currentIndex = 0;
 	let abbrScore = 0;
@@ -284,6 +415,20 @@
 		else showResults();
 	}
 
+	// ---- Insert resetQuiz function here ----
+	function resetQuiz(){
+		currentIndex = 0;
+		abbrScore = 0;
+		capitalScore = 0;
+		mapScore = 0;
+		attempts = 3;
+		showQuestion();
+
+		// Reset Answer Key
+		answerKeyUsed = false;
+		document.getElementById("showAnswerKeyBtn").style.display = "inline-block";
+	}
+	// ------------------------------------
 	showQuestion();
 </script>
 
