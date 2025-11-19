@@ -1,0 +1,150 @@
+/* Body & Background */
+body {
+	background-color: #1e3a8a; /* deep blue */
+	color: #fff;
+	font-family: sans-serif;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+/* Headings */
+h1, h2 {
+	margin-top: 20px;
+}
+
+/* Quiz containers */
+#quiz, #result, #answerKeyBox {
+	background: transparent;
+	padding: 20px;
+	margin: 20px auto;
+	max-width: 800px;
+	width: 90%;
+	border-radius: 10px;
+	text-align: center;
+}
+
+/* Quiz table center alignment */
+table#quizTable {
+	border-collapse: collapse;
+	border: none;
+	margin: 20px auto 0 auto;
+	padding: 0;
+}
+
+/* Question & error text */
+#questionText {
+	color: black;
+	font-weight: bold;
+	background-color: yellow;
+}
+#errorText {
+	font-size: 12px;
+	color: red;
+	margin: 0;
+}
+
+/* Inputs */
+input {
+	padding: 2px 5px;
+	margin: 0;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 1px solid #fff;
+	background: rgba(255, 255, 255, 0.1);
+	color: #fff;
+}
+#abbrInput { width: 2.5ch; }
+#capitalInput { width: 20ch; }
+
+/* Map styling */
+#map {
+	width: 100%;
+	max-width: 1000px;
+	height: auto;
+	margin: 20px auto;
+	display: block;
+	background-color: rgba(0,0,128,0.1); /* semi-transparent navy */
+}
+#map path {
+	fill: #ccc;
+	stroke: #333;
+	stroke-width: 1;
+	cursor: pointer;
+	transition: fill 0.3s;
+}
+#map path.correct { fill: green !important; }
+#map path.wrong { fill: red !important; }
+
+/* Answer key table */
+#answerKeyBox table {
+	width: 100%;
+	border-collapse: collapse;
+	color: #fff;
+}
+#answerKeyBox td, #answerKeyBox th {
+	border: 1px solid rgba(255,255,255,0.5);
+	padding: 4px;
+	font-size: 14px;
+}
+
+/* Answer key box button */
+#answerKeyBox button {
+	padding: 5px 10px;
+	border-radius: 5px;
+	background: red;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	margin-top: 10px;
+}
+
+/* One-Time Answer Key Button */
+#showAnswerKeyBtn {
+	color: red;
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 18px;
+	cursor: pointer;
+	margin: 10px;
+	animation: flash 1s infinite;
+	background: transparent;
+	border: 2px solid red;
+	border-radius: 5px;
+	padding: 5px 10px;
+	position: fixed;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1000;
+}
+@keyframes flash {
+	0%   { text-shadow: 0 0 5px red; }
+	50%  { text-shadow: 0 0 20px orange; }
+	100% { text-shadow: 0 0 5px red; }
+}
+
+/* Small instruction text */
+#instructions {
+	font-size: 12px;
+	color: #fff;
+	margin-bottom: 10px;
+}
+
+/* Form layout */
+#quizForm {
+	display: flex;
+	gap: 2px;
+	justify-content: center;
+	margin: 0;
+	padding: 0;
+}
+#quizForm button {
+	display: none;
+}
+.responsive-img {
+    width: 100%;
+    height: auto;
+    max-width: 1000px;
+    display: block;
+    margin: 0 auto;
+}
