@@ -54,7 +54,7 @@ input {
 	background: rgba(255, 255, 255, 0.1);
 	color: #fff;
 }
-#abbrInput { width: 2.5ch; }
+#abbrInput { width: 2.5ch; text-transform:uppercase;}
 #capitalInput { width: 20ch; }
 
 /* Map styling */
