@@ -34,7 +34,7 @@
 </table>
 
 <!-- SVG Map -->
-<svg id="map" style="background-color: rgba(0, 0, 128, 0.1);" viewBox="-50 -200 1100 900">
+<svg id="map" style="background-color: white;" viewBox="-70 -200 1070 780">
 	<!-- Your state paths go here -->
 	<path id="MA" d="m 956.31178,153.05085 -0.29118,-0.19412 0,0.29119 0.29118,-0.0971 z m -2.91189,-2.6207 0.67944,-0.29119 0,-0.38825 -0.67944,0.67944 z m 12.03583,-7.57092 -0.0971,-1.35889 -0.19412,-0.7765 0.29119,2.13539 z m -42.41659,-9.9975 -0.67944,0.29119 -5.5326,1.65007 -1.94126,0.67944 -2.23245,0.67944 -0.7765,0.29119 0,0.29119 0.29118,5.04728 0.29119,4.65903 0.29119,4.27078 0.48532,0.29119 1.74714,-0.48532 7.86211,-2.32951 0.19412,0.48531 13.97709,-5.33847 0.0971,0.19413 1.26182,-0.48532 4.4649,-1.74713 4.27078,5.14434 0,0 0.58238,-0.48531 0.29119,-1.45595 -0.0971,2.32952 0,0 0.97063,0 0.29119,1.16475 0.87357,1.65008 0,0 4.56197,-5.5326 3.78546,1.26182 0.87357,-1.94126 6.21204,-3.30015 -2.62071,-5.14435 0.67945,3.30015 -3.20309,2.42658 -3.59133,0.29119 -7.18267,-7.66799 -3.20309,-4.85315 3.20309,-3.39721 -3.30015,-0.19413 -1.35888,-3.20308 -0.0971,-0.19413 -5.53259,6.01791 -12.22996,4.07666 -3.97959,1.26182 0,0 z" fill="#ccc" stroke="#fff" stroke-width="1"></path>
 	<path id="MN" d="m 558.54712,73.847349 1.94126,6.891482 4.07665,24.848159 1.94126,9.90044 0.58238,8.73568 2.23246,5.24141 0.48531,4.4649 0.38825,1.45595 -0.0971,0.29119 -3.88252,6.40616 2.52364,4.27078 4.85315,34.16622 0.19413,4.4649 4.85315,-0.29119 19.12144,-1.06769 47.75505,-3.97959 4.7561,-0.48532 0,-0.48531 -1.35889,-7.47386 -5.92085,-3.00896 -4.65903,-4.85315 -7.37679,-4.46491 -2.32952,-0.19412 -3.59133,-2.71777 0.97063,-13.39471 -3.39721,-3.10602 1.16476,-5.43554 6.21204,-5.62966 -1.0677,-11.64757 2.23245,-2.52364 0,0 7.57093,-7.95918 8.63861,-11.065195 3.30015,-2.329514 5.82379,-2.814831 6.11497,-4.561967 -4.07665,0.776505 -2.42658,-1.844199 -9.31806,1.261821 -1.45594,-1.747136 -8.34743,3.397209 -6.69736,-2.814831 -1.84419,-2.232452 -5.33848,0.388253 -3.59133,-1.844199 1.16476,-1.358884 -4.56197,-1.455947 -4.07665,0 -6.50323,2.814831 -1.26182,-1.941263 -10.28869,-1.455947 -3.49427,-8.73568 -0.38826,-2.620705 -4.4649,-1.26182 0.38825,7.47386 -11.8417,0.873568 -14.65653,0.582379 -0.97063,0.09706 z" fill="#ccc" stroke="#fff" stroke-width="1"></path>
@@ -90,9 +90,24 @@
 </svg>
 
 <div id="result" style="display:none;"></div>
+<table id="tableDetailedScore" class="fade-table">
+  <thead>
+	<tr><th colspan="4">Score board</th></tr>
+    <tr>
+      <th>State</th>
+      <th>Abbr.</th>
+      <th>Capital</th>
+	  <th>Map</th>
+    </tr>
+  </thead>
+  <tbody>
+	<!--Dynamic content-->
+  </tbody>
+</table>
 
-<!-- One-Time Answer Key Button -->
+<!-- Show/Hide Answer Key Button -->
 <button id="showAnswerKeyBtn">Show Answer Key</button>
+<button id="hideAnswerKeyBtn" style="display:none;">Hide Answer Key</button>
 <!-- Answer Key Box -->
 <div id="answerKeyBox" style="display:none;">
 	<img src="images/SimpleStateNames.webp" alt="Simple state names" class="responsive-img">
@@ -100,68 +115,68 @@
 	<img src="images/StateAbbreviationsAndCapital.webp" alt="State abbreviations and capital" class="responsive-img">
 	<img src="images/StateNamesAndCapital.webp" alt="State names and capital" class="responsive-img">
 	<table id="answerKeyTable"></table>	
-	<button id="hideAnswerKeyBtn">Close</button>
 </div>
 
 <script>
 // Your JavaScript remains unchanged
 window.addEventListener('DOMContentLoaded', () => {
 	const states = [
-		{id:"AL", name:"Alabama", abbr:"AL", capital:"Montgomery"},
-		{id:"AK", name:"Alaska", abbr:"AK", capital:"Juneau"},
-		{id:"AZ", name:"Arizona", abbr:"AZ", capital:"Phoenix"},
-		{id:"AR", name:"Arkansas", abbr:"AR", capital:"Little Rock"},
-		{id:"CA", name:"California", abbr:"CA", capital:"Sacramento"},
-		{id:"CO", name:"Colorado", abbr:"CO", capital:"Denver"},
-		{id:"CT", name:"Connecticut", abbr:"CT", capital:"Hartford"},
-		{id:"DE", name:"Delaware", abbr:"DE", capital:"Dover"},
-		{id:"FL", name:"Florida", abbr:"FL", capital:"Tallahassee"},
-		{id:"GA", name:"Georgia", abbr:"GA", capital:"Atlanta"},
-		{id:"HI", name:"Hawaii", abbr:"HI", capital:"Honolulu"},
-		{id:"ID", name:"Idaho", abbr:"ID", capital:"Boise"},
-		{id:"IL", name:"Illinois", abbr:"IL", capital:"Springfield"},
-		{id:"IN", name:"Indiana", abbr:"IN", capital:"Indianapolis"},
-		{id:"IA", name:"Iowa", abbr:"IA", capital:"Des Moines"},
-		{id:"KS", name:"Kansas", abbr:"KS", capital:"Topeka"},
-		{id:"KY", name:"Kentucky", abbr:"KY", capital:"Frankfort"},
-		{id:"LA", name:"Louisiana", abbr:"LA", capital:"Baton Rouge"},
-		{id:"ME", name:"Maine", abbr:"ME", capital:"Augusta"},
-		{id:"MD", name:"Maryland", abbr:"MD", capital:"Annapolis"},
-		{id:"MA", name:"Massachusetts", abbr:"MA", capital:"Boston"},
-		{id:"MI", name:"Michigan", abbr:"MI", capital:"Lansing"},
-		{id:"MN", name:"Minnesota", abbr:"MN", capital:"Saint Paul"},
-		{id:"MS", name:"Mississippi", abbr:"MS", capital:"Jackson"},
-		{id:"MO", name:"Missouri", abbr:"MO", capital:"Jefferson City"},
-		{id:"MT", name:"Montana", abbr:"MT", capital:"Helena"},
-		{id:"NE", name:"Nebraska", abbr:"NE", capital:"Lincoln"},
-		{id:"NV", name:"Nevada", abbr:"NV", capital:"Carson City"},
-		{id:"NH", name:"New Hampshire", abbr:"NH", capital:"Concord"},
-		{id:"NJ", name:"New Jersey", abbr:"NJ", capital:"Trenton"},
-		{id:"NM", name:"New Mexico", abbr:"NM", capital:"Santa Fe"},
-		{id:"NY", name:"New York", abbr:"NY", capital:"Albany"},
-		{id:"NC", name:"North Carolina", abbr:"NC", capital:"Raleigh"},
-		{id:"ND", name:"North Dakota", abbr:"ND", capital:"Bismarck"},
-		{id:"OH", name:"Ohio", abbr:"OH", capital:"Columbus"},
-		{id:"OK", name:"Oklahoma", abbr:"OK", capital:"Oklahoma City"},
-		{id:"OR", name:"Oregon", abbr:"OR", capital:"Salem"},
-		{id:"PA", name:"Pennsylvania", abbr:"PA", capital:"Harrisburg"},
-		{id:"RI", name:"Rhode Island", abbr:"RI", capital:"Providence"},
-		{id:"SC", name:"South Carolina", abbr:"SC", capital:"Columbia"},
-		{id:"SD", name:"South Dakota", abbr:"SD", capital:"Pierre"},
-		{id:"TN", name:"Tennessee", abbr:"TN", capital:"Nashville"},
-		{id:"TX", name:"Texas", abbr:"TX", capital:"Austin"},
-		{id:"UT", name:"Utah", abbr:"UT", capital:"Salt Lake City"},
-		{id:"VT", name:"Vermont", abbr:"VT", capital:"Montpelier"},
-		{id:"VA", name:"Virginia", abbr:"VA", capital:"Richmond"},
-		{id:"WA", name:"Washington", abbr:"WA", capital:"Olympia"},
-		{id:"WV", name:"West Virginia", abbr:"WV", capital:"Charleston"},
-		{id:"WI", name:"Wisconsin", abbr:"WI", capital:"Madison"},
-		{id:"WY", name:"Wyoming", abbr:"WY", capital:"Cheyenne"}
+		{name:"Alabama", abbr:"AL", capital:"Montgomery"},
+		{name:"Alaska", abbr:"AK", capital:"Juneau"},
+		{name:"Arizona", abbr:"AZ", capital:"Phoenix"},
+		{name:"Arkansas", abbr:"AR", capital:"Little Rock"},
+		{name:"California", abbr:"CA", capital:"Sacramento"},
+		{name:"Colorado", abbr:"CO", capital:"Denver"},
+		{name:"Connecticut", abbr:"CT", capital:"Hartford"},
+		{name:"Delaware", abbr:"DE", capital:"Dover"},
+		{name:"Florida", abbr:"FL", capital:"Tallahassee"},
+		{name:"Georgia", abbr:"GA", capital:"Atlanta"},
+		{name:"Hawaii", abbr:"HI", capital:"Honolulu"},
+		{name:"Idaho", abbr:"ID", capital:"Boise"},
+		{name:"Illinois", abbr:"IL", capital:"Springfield"},
+		{name:"Indiana", abbr:"IN", capital:"Indianapolis"},
+		{name:"Iowa", abbr:"IA", capital:"Des Moines"},
+		{name:"Kansas", abbr:"KS", capital:"Topeka"},
+		{name:"Kentucky", abbr:"KY", capital:"Frankfort"},
+		{name:"Louisiana", abbr:"LA", capital:"Baton Rouge"},
+		{name:"Maine", abbr:"ME", capital:"Augusta"},
+		{name:"Maryland", abbr:"MD", capital:"Annapolis"},
+		{name:"Massachusetts", abbr:"MA", capital:"Boston"},
+		{name:"Michigan", abbr:"MI", capital:"Lansing"},
+		{name:"Minnesota", abbr:"MN", capital:"Saint Paul"},
+		{name:"Mississippi", abbr:"MS", capital:"Jackson"},
+		{name:"Missouri", abbr:"MO", capital:"Jefferson City"},
+		{name:"Montana", abbr:"MT", capital:"Helena"},
+		{name:"Nebraska", abbr:"NE", capital:"Lincoln"},
+		{name:"Nevada", abbr:"NV", capital:"Carson City"},
+		{name:"New Hampshire", abbr:"NH", capital:"Concord"},
+		{name:"New Jersey", abbr:"NJ", capital:"Trenton"},
+		{name:"New Mexico", abbr:"NM", capital:"Santa Fe"},
+		{name:"New York", abbr:"NY", capital:"Albany"},
+		{name:"North Carolina", abbr:"NC", capital:"Raleigh"},
+		{name:"North Dakota", abbr:"ND", capital:"Bismarck"},
+		{name:"Ohio", abbr:"OH", capital:"Columbus"},
+		{name:"Oklahoma", abbr:"OK", capital:"Oklahoma City"},
+		{name:"Oregon", abbr:"OR", capital:"Salem"},
+		{name:"Pennsylvania", abbr:"PA", capital:"Harrisburg"},
+		{name:"Rhode Island", abbr:"RI", capital:"Providence"},
+		{name:"South Carolina", abbr:"SC", capital:"Columbia"},
+		{name:"South Dakota", abbr:"SD", capital:"Pierre"},
+		{name:"Tennessee", abbr:"TN", capital:"Nashville"},
+		{name:"Texas", abbr:"TX", capital:"Austin"},
+		{name:"Utah", abbr:"UT", capital:"Salt Lake City"},
+		{name:"Vermont", abbr:"VT", capital:"Montpelier"},
+		{name:"Virginia", abbr:"VA", capital:"Richmond"},
+		{name:"Washington", abbr:"WA", capital:"Olympia"},
+		{name:"West Virginia", abbr:"WV", capital:"Charleston"},
+		{name:"Wisconsin", abbr:"WI", capital:"Madison"},
+		{name:"Wyoming", abbr:"WY", capital:"Cheyenne"}
 	];
 
 	// Initialize answer key and set capitals dropdown
 	const capitalList = document.getElementById('capitalList');
 	const tableAnswerKey = document.getElementById("answerKeyTable");
+	const tableDetailedScore = document.getElementById("tableDetailedScore");	
 	const questionText = document.getElementById('questionText');
 	const errorText = document.getElementById('errorText');
 	const abbrInput = document.getElementById('abbrInput');
@@ -170,6 +185,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	const quizForm = document.getElementById('quizForm');
 	const map = document.getElementById('map');	
 	const showAnswerKeyBtn = document.getElementById("showAnswerKeyBtn");
+	const hideAnswerKeyBtn = document.getElementById("hideAnswerKeyBtn");
+	const answerKeyBox = document.getElementById("answerKeyBox");
+	var jsonStates = {};
 	
 	tableAnswerKey.innerHTML = "<tr><th>State</th><th>Abbr</th><th>Capital</th></tr>";
 	states.forEach(s => {
@@ -177,6 +195,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		option.value = s.capital;
 		capitalList.appendChild(option);
 		tableAnswerKey.insertAdjacentHTML("beforeend", `<tr><td>${s.name}</td><td>${s.abbr}</td><td>${s.capital}</td></tr>`);
+		jsonStates[s.abbr]=s;
 	});
 
 	// Shuffle states
@@ -198,7 +217,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		if(nIndexQuestion<states.length){
 			nAttemptsLeft = 3;
 			const state = states[nIndexQuestion];
-			questionText.textContent = `[${nIndexQuestion + 1}] ${state.name}`;
+			questionText.textContent = `${nIndexQuestion + 1}. ${state.name}`;
 			strMapSelectionID = '';
 			errorText.textContent = '';
 			capitalInput.value = '';
@@ -228,6 +247,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			<p>Map Clicks: ${nScoreMap}/${states.length} (${nPercentMap}%) - Grade: ${getGrade(nPercentMap)}</p>
 		`;
 		resultDiv.style.display='block';
+		tableDetailedScore.style.display='none';
 		boolResultsPublished = true;
 	}
 
@@ -250,16 +270,29 @@ window.addEventListener('DOMContentLoaded', () => {
 			return (value1.trim().toUpperCase()==value2.trim().toUpperCase()?(answerKeyUsed ? 0.5:1):0);
 		}
 		const state=states[nIndexQuestion];
+		const nScoreAbbrevationCurrent = getScore(abbrInput.value, state.abbr);
+		const nScoreCapitalCurrent = getScore(capitalInput.value, state.capital);
 		const nScoreMapCurrent = getScore(strMapSelectionID, state.abbr);
 		if (nAttemptsLeft > 0 && nScoreMapCurrent == 0 ) {
 			nAttemptsLeft--;
 			errorText.textContent = `Wrong! Try again (${nAttemptsLeft} attempts left)`;
 		}
-		else{
-			nScoreAbbrevation += getScore(abbrInput.value, state.abbr);
-			nScoreCapital += getScore(capitalInput.value, state.capital);
+		else{			
+			nScoreAbbrevation += nScoreAbbrevationCurrent;
+			nScoreCapital += nScoreCapitalCurrent;
 			nScoreMap += nScoreMapCurrent;
-			map.querySelector(`#${state.abbr}`).classList.add(nScoreMapCurrent==0?'wrong':'correct'); 
+			const strStyleAbbrevation = nScoreAbbrevationCurrent==0?'wrong':'correct';
+			const strStyleCapital = nScoreCapitalCurrent==0?'wrong':'correct';
+			const strStyleMap = nScoreMapCurrent==0?'wrong':'correct';
+			const strMapSelected = strMapSelectionID==''?'':jsonStates[strMapSelectionID].name;
+			map.querySelector(`#${state.abbr}`).classList.add(strStyleMap);
+			const strRowHTML = `<tr>
+			  <td>${state.name}</td>
+			  <td>${abbrInput.value}<span class="answer-tag ${strStyleAbbrevation}">${state.abbr}</span></td>
+			  <td>${capitalInput.value}<span class="answer-tag ${strStyleCapital}">${state.capital}</span></td>
+			  <td>${strMapSelected}<span class="answer-tag ${strStyleMap}">${state.name}</span></td>
+			</tr>`;
+			tableDetailedScore.querySelector("tbody").insertAdjacentHTML("afterbegin", strRowHTML);
 			nIndexQuestion++;
 			showQuestion();
 		}
@@ -267,17 +300,15 @@ window.addEventListener('DOMContentLoaded', () => {
 	
 	showQuestion();
 	
-	showAnswerKeyBtn.addEventListener("click", ()=> {
-		answerKeyUsed = true;
-		showAnswerKeyBtn.style.display = "none";
-		document.getElementById("answerKeyBox").style.display = "block";
-	});
-
-	document.getElementById("hideAnswerKeyBtn").addEventListener("click", () => {
-		answerKeyUsed = false;
-		showAnswerKeyBtn.style.display = "block";
-		document.getElementById("answerKeyBox").style.display = "none";
-	});
+	function showOrHideAnswerKey(){
+		answerKeyUsed = !answerKeyUsed; // toggle boolean
+		showAnswerKeyBtn.style.display = answerKeyUsed ? "none" : "block";
+		hideAnswerKeyBtn.style.display = answerKeyUsed ? "block" : "none";
+		answerKeyBox.style.display = answerKeyUsed ? "block" : "none";
+	}
+	
+	showAnswerKeyBtn.addEventListener("click", showOrHideAnswerKey);
+	hideAnswerKeyBtn.addEventListener("click", showOrHideAnswerKey);
 	
 });
 </script>
