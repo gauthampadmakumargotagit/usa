@@ -182,7 +182,9 @@ input {
   padding: 6px 8px;
   font-size: 14px;
   border-bottom: 1px solid #ddd;
-  word-break: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .fade-table thead,
