@@ -222,6 +222,14 @@ window.addEventListener('DOMContentLoaded', () => {
 	let nScoreMap = 0;
 	let boolResultsPublished = false;
 	
+	function resetBrowserZoom() {
+		const vp = document.querySelector('meta[name=viewport]');
+		vp.setAttribute('content', 'width=device-width, initial-scale=1.001');
+		setTimeout(() => {
+			vp.setAttribute('content', 'width=device-width, initial-scale=1.0');
+		}, 100);
+	}
+	
 	function showQuestion(){		
 		if(nIndexQuestion<states.length){
 			nAttemptsLeft = 3;
@@ -231,8 +239,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			errorText.textContent = '';
 			capitalInput.value = '';
 			abbrInput.value = '';
-			abbrInput.focus();
-			buttonSubmitAnswer.focus();
+			//abbrInput.focus();
+			//buttonSubmitAnswer.focus();
+			resetBrowserZoom();
 		}
 		else{
 			showResults()
@@ -288,7 +297,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			errorText.textContent = `Wrong! Try again (${nAttemptsLeft} attempts left)`;
 		}
 		else{
-			capitalInput.focus();
+			//capitalInput.focus();
 			nScoreAbbrevation += nScoreAbbrevationCurrent;
 			nScoreCapital += nScoreCapitalCurrent;
 			nScoreMap += nScoreMapCurrent;
