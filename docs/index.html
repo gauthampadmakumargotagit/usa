@@ -27,7 +27,7 @@
       <form id="quizForm">
 		<span id="questionText"></span>
         <input type="text" id="abbrInput" maxlength="2" placeholder="XX" autocomplete="off">
-        <input id="capitalInput" list="capitalList" placeholder="State Capital" autocomplete="off">
+        <input id="capitalInput" list="capitalList" placeholder="Capital" autocomplete="off">
         <datalist id="capitalList"></datalist>
         <button id="buttonSubmitAnswer" type="submit">↵</button>
       </form>
@@ -231,7 +231,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			errorText.textContent = '';
 			capitalInput.value = '';
 			abbrInput.value = '';
-			//abbrInput.focus();
+			abbrInput.focus();
 			buttonSubmitAnswer.focus();
 		}
 		else{
@@ -288,7 +288,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			errorText.textContent = `Wrong! Try again (${nAttemptsLeft} attempts left)`;
 		}
 		else{
-			//capitalInput.focus();
+			capitalInput.focus();
 			nScoreAbbrevation += nScoreAbbrevationCurrent;
 			nScoreCapital += nScoreCapitalCurrent;
 			nScoreMap += nScoreMapCurrent;
