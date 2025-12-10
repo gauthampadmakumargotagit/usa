@@ -29,7 +29,7 @@
         <input type="text" id="abbrInput" maxlength="2" placeholder="XX" autocomplete="off">
         <input id="capitalInput" list="capitalList" placeholder="State Capital" autocomplete="off">
         <datalist id="capitalList"></datalist>
-        <button type="submit">Go</button>
+        <button id="buttonSubmitAnswer" type="submit">↵</button>
       </form>
     </td>
   </tr>
@@ -195,6 +195,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	const showAnswerKeyBtn = document.getElementById("showAnswerKeyBtn");
 	const hideAnswerKeyBtn = document.getElementById("hideAnswerKeyBtn");
 	const answerKeyBox = document.getElementById("answerKeyBox");
+	const buttonSubmitAnswer = document.getElementById("buttonSubmitAnswer");
 	var jsonStates = {};
 	
 	tableAnswerKey.innerHTML = "<tr><th>State</th><th>Abbr</th><th>Capital</th></tr>";
@@ -230,7 +231,8 @@ window.addEventListener('DOMContentLoaded', () => {
 			errorText.textContent = '';
 			capitalInput.value = '';
 			abbrInput.value = '';
-			abbrInput.focus();
+			//abbrInput.focus();
+			buttonSubmitAnswer.focus();
 		}
 		else{
 			showResults()
@@ -286,7 +288,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			errorText.textContent = `Wrong! Try again (${nAttemptsLeft} attempts left)`;
 		}
 		else{
-			capitalInput.focus();
+			//capitalInput.focus();
 			nScoreAbbrevation += nScoreAbbrevationCurrent;
 			nScoreCapital += nScoreCapitalCurrent;
 			nScoreMap += nScoreMapCurrent;
