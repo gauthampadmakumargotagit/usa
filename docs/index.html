@@ -25,7 +25,7 @@
   <tr>
     <td>
       <form id="quizForm">
-		<span id="questionText"></span>
+		<label id="questionText" tabindex="-1"></label>
         <input type="text" id="abbrInput" maxlength="2" placeholder="XX" autocomplete="off">
         <input id="capitalInput" list="capitalList" placeholder="Capital" autocomplete="off">
         <datalist id="capitalList"></datalist>
@@ -223,11 +223,10 @@ window.addEventListener('DOMContentLoaded', () => {
 	let boolResultsPublished = false;
 	
 	function resetBrowserZoom() {
-		const vp = document.querySelector('meta[name=viewport]');
-		vp.setAttribute('content', 'width=device-width, initial-scale=1.001');
+		abbrInput.focus();
 		setTimeout(() => {
-			vp.setAttribute('content', 'width=device-width, initial-scale=1.0');
-		}, 100);
+			questionText.focus();
+		}, 1000);
 	}
 	
 	function showQuestion(){		
