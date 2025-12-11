@@ -223,9 +223,12 @@ window.addEventListener('DOMContentLoaded', () => {
 	let boolResultsPublished = false;
 	
 	function resetBrowserZoom() {
-		abbrInput.focus();
+		const vp = document.querySelector('meta[name=viewport]');
+		vp.setAttribute('content', 'width=device-width, initial-scale=1.001'); //works for desktop chrome mobile emulator
+		abbrInput.focus(); //works for read mobile safari
 		setTimeout(() => {
-			questionText.focus();
+			vp.setAttribute('content', 'width=device-width, initial-scale=1.0'); //works for desktop chrome mobile emulator
+			questionText.focus(); //works for read mobile safari
 		}, 100);
 	}
 	
