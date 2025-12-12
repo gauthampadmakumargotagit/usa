@@ -168,6 +168,7 @@ input {
     margin: 0 auto;
 }
 
+/* table */
 .fade-table {
   width: 100%;
   border-collapse: collapse;
@@ -210,6 +211,11 @@ input {
   background: linear-gradient(to bottom, rgba(255,255,255,0), white);
 }
 
+/* Cell becomes a positioning container */
+.fade-table td {
+  position: relative;
+}
+
 /* MOBILE OPTIMIZATION — fits more columns */
 @media (max-width: 600px) {
 
@@ -229,39 +235,41 @@ input {
   }
 }
 
-.answer-tag {
+/* =========================
+   Tags inside cells
+========================= */
+.tag {
   position: absolute;
-  bottom: 2px;
-  right: 4px;
-
   font-size: 8px;
   line-height: 1;
   padding: 1px 4px;
-
   border-radius: 3px;
   font-weight: 600;
-
   opacity: 0.9;
   pointer-events: none;
   white-space: nowrap;
 }
 
-/* Cell becomes a positioning container */
-.fade-table td {
-  position: relative;
+.answer-tag {
+  bottom: 2px;
+  right: 4px;
 }
 
-/* Correct (greenish) */
-.answer-tag.correct {
+.question-tag {
+  top: 2px;
+  left: 4px;
+}
+
+.tag.correct {
   background: #c6f6c6;
   color: #176317;
   border: 1px solid #8fd98f;
 }
 
-/* Wrong (reddish) */
-.answer-tag.wrong {
+.tag.wrong {
   background: #ffd6d6;
   color: #8a1a1a;
   border: 1px solid #f2aaaa;
 }
+
 
