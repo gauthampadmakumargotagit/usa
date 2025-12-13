@@ -180,12 +180,18 @@ input {
 
 .fade-table th,
 .fade-table td {
-  padding: 6px 8px;
   font-size: 14px;
   border-bottom: 1px solid #ddd;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.fade-table th:first-child,
+.fade-table td:first-child {
+  width: 10px;
+  min-width: 10px;
+  max-width: 10px;
 }
 
 .fade-table thead,
@@ -221,15 +227,12 @@ input {
 
   .fade-table th {
     font-size: 11px;
-    padding: 4px 6px;
   }
 
   .fade-table td {
     font-size: 12px;
-    padding: 4px 6px;
   }
 
-  /* tighter vertical height */
   .fade-table {
     max-height: calc(4 * 1.6em + 1.6em);
   }

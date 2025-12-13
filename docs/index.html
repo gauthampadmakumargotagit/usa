@@ -37,15 +37,10 @@
 
 <div id="result" style="display:none;"></div>
 <table id="tableDetailedScore" class="fade-table">
-  <colgroup>
-    <col style="width:20px;">
-    <col>
-    <col>
-	<col>
-	<col>
-  </colgroup>
   <thead>
 	<tr><th colspan="5">Score board</th></tr>
+  </thead>
+  <tbody>
     <tr>
 	  <th>#</th>
       <th>State</th>
@@ -53,14 +48,12 @@
       <th>Capital</th>
 	  <th>Map</th>
     </tr>
-  </thead>
-  <tbody>
-	<tr><td>●</td></tr>
-	<tr><td>●</td></tr>
-	<tr><td>●</td></tr>
-	<tr><td>●</td></tr>
-	<tr><td>●</td></tr>
 	<!--Dynamic content-->
+	<tr><td colspan="5">●</td></tr>
+	<tr><td colspan="5">●</td></tr>
+	<tr><td colspan="5">●</td></tr>
+	<tr><td colspan="5">●</td></tr>
+	<tr><td colspan="5">●</td></tr>
   </tbody>
 </table>
 
@@ -232,10 +225,11 @@ window.addEventListener('DOMContentLoaded', () => {
 	function resetBrowserZoom() {
 		const vp = document.querySelector('meta[name=viewport]');
 		vp.setAttribute('content', 'width=device-width, initial-scale=1.001'); //works for desktop chrome mobile emulator
-		abbrInput.focus(); //works for read mobile safari
+		questionText.focus(); //works for read mobile safari
+		//abbrInput.focus(); //works for read mobile safari
 		setTimeout(() => {
 			vp.setAttribute('content', 'width=device-width, initial-scale=1.0'); //works for desktop chrome mobile emulator
-			questionText.focus(); //works for read mobile safari
+			//questionText.focus(); //works for read mobile safari
 		}, 100);
 	}
 	
@@ -324,7 +318,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			  <td><span class="tag question-tag ${strStyleCapital}">${strCapitalSelected}</span><span class="tag answer-tag correct">${state.capital}</span></td>
 			  <td><span class="tag question-tag ${strStyleMap}">${strMapSelected}</span><span class="tag answer-tag correct">${state.name}</span></td>
 			</tr>`;
-			tableDetailedScore.querySelector("tbody").insertAdjacentHTML("afterbegin", strRowHTML);
+			tableDetailedScore.querySelector("tbody").querySelector("tr").insertAdjacentHTML("afterend", strRowHTML);
 			nIndexQuestion++;
 			showQuestion();
 		}
