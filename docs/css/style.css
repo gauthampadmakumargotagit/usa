@@ -62,7 +62,7 @@ input {
 	width: 100%;
 	max-width: 1000px;
 	height: auto;
-	margin: 20px auto;
+	margin: 1px auto;
 	display: block;
 	background-color: rgba(0,0,128,0.1); /* semi-transparent navy */
 }
@@ -177,11 +177,14 @@ input {
   max-height: calc(4 * 2.2em + 2.2em); /* 3 rows + header */
   overflow: hidden;
 }
+.fade-table th{
+  border-bottom: 1px solid #ddd;
+}
 
 .fade-table th,
 .fade-table td {
   font-size: 14px;
-  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -189,9 +192,9 @@ input {
 
 .fade-table th:first-child,
 .fade-table td:first-child {
-  width: 10px;
-  min-width: 10px;
-  max-width: 10px;
+  width: 20px;
+  min-width: 20px;
+  max-width: 20px;
 }
 
 .fade-table thead,
