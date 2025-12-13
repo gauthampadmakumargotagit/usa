@@ -309,7 +309,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			const strStyleAbbrevation = nScoreAbbrevationCurrent==0?'wrong':'correct';
 			const strStyleCapital = nScoreCapitalCurrent==0?'wrong':'correct';
 			const strStyleMap = nScoreMapCurrent==0?'wrong':'correct';
-			const strAbbrSelected = abbrInput.value==''?'null':abbrInput.value;
+			const strAbbrSelected = abbrInput.value==''?'null':abbrInput.value.toUpperCase();
 			const strCapitalSelected = capitalInput.value ==''?'null':capitalInput.value;
 			const strMapSelected = strMapSelectionID==''?'null':jsonStates[strMapSelectionID].name;
 			map.querySelector(`#${state.abbr}`).classList.add(strStyleMap);
