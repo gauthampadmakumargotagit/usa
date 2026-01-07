@@ -305,19 +305,20 @@ window.addEventListener('DOMContentLoaded', () => {
 			nScoreAbbrevation += nScoreAbbrevationCurrent;
 			nScoreCapital += nScoreCapitalCurrent;
 			nScoreMap += nScoreMapCurrent;
-			const strStyleAbbrevation = nScoreAbbrevationCurrent==0?'wrong':'correct';
-			const strStyleCapital = nScoreCapitalCurrent==0?'wrong':'correct';
-			const strStyleMap = nScoreMapCurrent==0?'wrong':'correct';
+			const strStyleAbbrevation = nScoreAbbrevationCurrent==0?'wrong':'correct hidden';
+			const strStyleCapital = nScoreCapitalCurrent==0?'wrong':'correct hidden';
+			const strStyleMapInTable = nScoreMapCurrent==0?'wrong':'correct hidden';
+			const strStyleMapInSVG = nScoreMapCurrent==0?'wrong':'correct';
 			const strAbbrSelected = abbrInput.value==''?'null':abbrInput.value.toUpperCase();
 			const strCapitalSelected = capitalInput.value ==''?'null':capitalInput.value;
 			const strMapSelected = strMapSelectionID==''?'null':jsonStates[strMapSelectionID].name;
-			map.querySelector(`#${state.abbr}`).classList.add(strStyleMap);
+			map.querySelector(`#${state.abbr}`).classList.add(strStyleMapInSVG);
 			const strRowHTML = `<tr>
 			  <td>${nIndexQuestion + 1}</td>
 			  <td>${state.name}</td>
 			  <td><span class="tag question-tag ${strStyleAbbrevation}">${strAbbrSelected}</span><span class="tag answer-tag correct">${state.abbr}</span></td>
 			  <td><span class="tag question-tag ${strStyleCapital}">${strCapitalSelected}</span><span class="tag answer-tag correct">${state.capital}</span></td>
-			  <td><span class="tag question-tag ${strStyleMap}">${strMapSelected}</span><span class="tag answer-tag correct">${state.name}</span></td>
+			  <td><span class="tag question-tag ${strStyleMapInTable}">${strMapSelected}</span><span class="tag answer-tag correct">${state.name}</span></td>
 			</tr>`;
 			tableDetailedScore.querySelector("tbody").querySelector("tr").insertAdjacentHTML("afterend", strRowHTML);
 			nIndexQuestion++;

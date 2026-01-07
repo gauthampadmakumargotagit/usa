@@ -278,4 +278,8 @@ input {
   border: 1px solid #f2aaaa;
 }
 
+.tag.hidden {
+  display: none;
+}
+
 
